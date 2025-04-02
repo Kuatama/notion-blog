@@ -1,0 +1,15 @@
+name: Sync Notion Content
+on:
+  schedule:
+    - cron: '0 */1 * * *' # 每6小时同步一次
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update Content
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git commit -am "Auto content update" || exit 0
+          git push
